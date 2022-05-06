@@ -1,5 +1,10 @@
 CC = gcc
 TARG = review.o util.o
+ifeq ($(OS),Windows_NT) #delete function for different OS
+	DELFUNC = del
+else
+	DELFUNC = rm -rf
+endif
 
 testwrite: review.c util.o
 	$(CC) -o review $^ -DTESTWRITE
@@ -11,7 +16,6 @@ testdel: review.c util.o
 	$(CC) -o review $^ -DTESTDEL
 
 clean:
-	del $(TARG)
-	del *.exe
-	rm -rf $(TARG)
-	rm -rf *.exe
+	$(DELFUNC) $(TARG)
+	$(DELFUNC) review
+	$(DELFUNC) review.exe
