@@ -31,7 +31,7 @@ void write(Review** review){						// 리뷰를 작성한다. 입력값은 리뷰
 	scanf("%s",(*review)->nikename);
 	getchar();
 	printf("내용\n>");
-	gets((*review)->content);
+	gets_((*review)->content,200);
 	printf("추천하시면 1을, 아니면 0을 입력해주세요\n>");
 	(*review)->recommend = (int)right_input_float(check_0or1,"ERROR) 1 또는 0을 입력해주세요\n>");
 	printf("별점을 1점부터 5점까지 입력해주세요\n>");
@@ -70,7 +70,7 @@ void edit(Review** review){							// 리뷰를 수정한다. 입력값은 리뷰
 				break;
 			case 2:
 				printf("내용\n>");
-				gets(temp->content);
+				gets_(temp->content,200);
 				break;
 			case 3:
 				printf("추천 : 1 / 비추천 : 0\n>");

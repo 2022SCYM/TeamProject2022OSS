@@ -1,14 +1,20 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "util.h"
 
 char tmp[20] = "";
 
+void gets_(char *buf,int size){
+	fgets(buf,size,stdin);
+	buf[strlen(buf)-1] = 0;
+}
+
 float right_input_float(int func(float), const char *prompt){	// 원하는 값의 input이 입력될 때까지 계속해서 prompt
 	float r = 0;												// 입력값은 값을 evaluate하는 함수와 prompt메시지
 	while(1){
-		gets(tmp);
+		gets_(tmp,20);
 		if(isalldigit(tmp)){
 			r = atof(tmp);
 			if(func(r))
