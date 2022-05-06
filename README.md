@@ -13,3 +13,7 @@ OSS 강의에 대해 느낀 점과 바라는 점이 있다면 자유롭게 작�
 VScode 에서 C언어로 개발중입니다.
 
 박세찬, 박여목 님이 개발에 참여중입니다.
+  
+
+image credit  
+[제작자: Freepik - Flaticon](https://www.flaticon.com/kr/)

@@ -2,7 +2,7 @@
 typedef struct{  
   char nikename[20];    // 작성자 닉네임
   char content[200];    // 리뷰 내용
-  bool recommend;       // 추천 여부
+  int recommend;       // 추천 여부
   int rating;           // 별점 (1 ~ 5)
 }Review;
 
