@@ -93,7 +93,7 @@ void read(Review* review) {            // 리뷰 목록을 조회한다. 입력�
 		printf("%s\n", review->content);
 		if(review->recommend==1) printf("추천!\t");
 		else printf("추천 안함...\t");
-		printf("별점 : %d\n", review->rating);
+		printf("별점 : %.1f\n", review->rating/2.0);
 	}
 	else printf("데이터가 없습니다.\n");
 }
@@ -119,6 +119,7 @@ void edit(Review** review){							// 리뷰를 수정한다. 입력값은 리뷰
 
 	int select = -1;
 	while(select!=0&&select!=5){
+		read(temp);
 		select = edit_menu();
 		switch(select){
 			case 1:
@@ -206,5 +207,31 @@ int main(){
 		printf("%s %s %d %d\n",a->nickname,a->content,a->recommend,a->rating);
 		free(a);
 	}
+}
+#endif
+
+#ifdef TESTREAD
+int main(){
+	Review *a[3];
+	
+	a[0] = (Review *)malloc(sizeof(Review));
+	strcpy(a[0]->nickname,"닉네임");
+	strcpy(a[0]->content,"강의에 대한 리뷰");
+	a[0]->recommend = 1;
+	a[0]->rating = 3;
+	
+	a[1] = (Review *)malloc(sizeof(Review));
+	strcpy(a[1]->nickname,"닉네임2");
+	strcpy(a[1]->content,"강의에 대한 리뷰2");
+	a[1]->recommend = 1;
+	a[1]->rating = 8;
+
+	a[2] = (Review *)malloc(sizeof(Review));
+	strcpy(a[2]->nickname,"닉네임3");
+	strcpy(a[2]->content,"강의에 대한 리뷰3");
+	a[2]->recommend = 1;
+	a[2]->rating = 4;
+
+	read_all(a,3);
 }
 #endif

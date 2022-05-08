@@ -15,6 +15,9 @@ testedit: review.c util.o
 testdel: review.c util.o
 	$(CC) -o review $^ -DTESTDEL
 
+testread: review.c util.o
+	$(CC) -o review $^ -DTESTREAD
+
 clean:
 	$(DELFUNC) $(TARG)
 	$(DELFUNC) review
