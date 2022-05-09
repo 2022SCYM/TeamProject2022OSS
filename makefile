@@ -18,6 +18,9 @@ testdel: review.c util.o
 testread: review.c util.o
 	$(CC) -o review $^ -DTESTREAD
 
+testcond: review.c util.o
+	$(CC) -o review $^ -DTESTCONDI
+
 clean:
 	$(DELFUNC) $(TARG)
 	$(DELFUNC) review
