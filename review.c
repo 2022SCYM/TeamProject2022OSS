@@ -164,15 +164,53 @@ void del(Review** review){							// 리뷰를 삭제한다. 입력값은 리뷰 구조체 배열과
 	}
 }
 
-void save(Review* review[], int count) {            // 리뷰 목록을 파일에 저장한다. 입력값은 리뷰 구조체 배열과 갯수이다.
-
+void save(Review* review[], int count){             // 由щ럭 紐⑸줉?쓣 ?뙆?씪?뿉 ????옣?븳?떎. ?엯?젰媛믪?? 由щ럭 援ъ“泥? 諛곗뿴怨? 媛??닔?씠?떎.
+	FILE *fp = fopen("data.txt","w");
+	for(int i = 0; i<count; i++){
+		fprintf(fp,"%s %d %d %s\n",review[i]->nickname,review[i]->recommend,review[i]->rating,review[i]->content);
+	}
+	fclose(fp);
 }
-int load(Review* review[]) {                        // 리뷰 목록을 파일에서 불러온다. 입력값은 리뷰 구조체 배열이다.
 
+int load(Review* review[]){                         // 由щ럭 紐⑸줉?쓣 ?뙆?씪?뿉?꽌 遺덈윭?삩?떎. ?엯?젰媛믪?? 由щ럭 援ъ“泥? 諛곗뿴?씠?떎.
+	FILE *fp = fopen("data.txt","r");
+	int count = 0;
+	while(1){
+		Review *tmp = (Review*)malloc(sizeof(Review));
+		fscanf(fp,"%s",tmp->nickname);
+		if(feof(fp))
+			break;
+		fscanf(fp,"%d %d %[^\n]",&tmp->recommend,&tmp->rating,tmp->content);
+		review[count] = tmp;
+		count++;
+	}
+	fclose(fp);
+	return count;
 }
-int select_index(Review* review[], int count) {
 
+int check1tocount(float input){
+	return input == (int) input && input>=1 && input<=rtmp;
 }
+
+int select_index(Review* review[], int count,const char *prompt){
+	int idx = 0;
+	char txt[50];
+	sprintf(txt,"1부터 %d까지의 번호를 입력해주세요\n>",count);
+	rtmp = count;
+	while(1){
+		printf(prompt);
+		idx = (int)right_input_float(check1tocount,(const char*)txt)-1;
+		if(review[idx]!=NULL)
+			break;
+		printf("존재하지 않는 항목입니다.");
+	}
+	return idx;
+}
+
+int check0to7(float input){
+	return (int) input == input && input>=0 &&input<=7;
+}
+
 int showMenu() {									// 메뉴를 보여주고 입력받은 값을 리턴한다.
 	printf("\nOSS 강의에 대해 느낀 점이나 바라는 점을 자유롭게 작성하고 공유할 수 있습니다.\n");
 	printf("===============================================================================\n");
@@ -182,10 +220,9 @@ int showMenu() {									// 메뉴를 보여주고 입력받은 값을 리턴한다.
 	printf("4. 리뷰 삭제\t\t\t0. 종료\n");
 	printf("===============================================================================\n");
 	printf("원하시는 메뉴를 입력해 주세요.  ");
-	int menu;
-	scanf("%d", &menu);
-	return menu;
+	return (int)right_input_float(check0to7,"0 부터 7 까지의 숫자를 입력해 주세요\n>");
 }
+
 int showReadMenu() {                    // Read의 메뉴를 보여주고 입력받은 값을 리턴한다.
 	int menu;
 	printf("===============================\n");
@@ -196,9 +233,9 @@ int showReadMenu() {                    // Read의 메뉴를 보여주고 입력받은 값을 
 	printf("5. 별점으로 조회\n");
 	printf("===============================\n");
 	printf("원하시는 메뉴를 입력해 주세요.  ");
-	scanf("%d", &menu);
-	return menu;
+	return (int)right_input_float(check_1to5,"1 부터 5 까지의 숫자를 입력해 주세요\n>");
 }
+
 #ifdef TESTWRITE
 int main(){
 	Review *a;
@@ -298,5 +335,36 @@ int main(){
 	read_conditional(a,3);
 	printf("=========\n");
 	search(a,3);
+}
+#endif
+
+#ifdef TESTFILE
+int main(){
+	Review *a[3];
+	
+	a[0] = (Review *)malloc(sizeof(Review));
+	strcpy(a[0]->nickname,"bob");
+	strcpy(a[0]->content,"강의에 대한 리뷰");
+	a[0]->recommend = 1;
+	a[0]->rating = 3;
+	
+	a[1] = (Review *)malloc(sizeof(Review));
+	strcpy(a[1]->nickname,"steve");
+	strcpy(a[1]->content,"강의에 대한 리뷰2");
+	a[1]->recommend = 1;
+	a[1]->rating = 8;
+
+	a[2] = (Review *)malloc(sizeof(Review));
+	strcpy(a[2]->nickname,"dave");
+	strcpy(a[2]->content,"강의에 대한 리뷰3");
+	a[2]->recommend = 1;
+	a[2]->rating = 4;
+
+	save(a,3);
+
+	Review *b[3];
+	load(b);
+
+	read_all(b,3);
 }
 #endif

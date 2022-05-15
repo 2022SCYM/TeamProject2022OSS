@@ -19,6 +19,6 @@ void edit(Review** review);             // 리뷰를 수정한다. 입력값은 리뷰 구조체
 void del(Review** review);              // 리뷰를 삭제한다. 입력값은 리뷰 구조체 배열과 갯수이다.
 void save(Review* review[], int count);             // 리뷰 목록을 파일에 저장한다. 입력값은 리뷰 구조체 배열과 갯수이다.
 int load(Review* review[]);                         // 리뷰 목록을 파일에서 불러온다. 입력값은 리뷰 구조체 배열이다.
-int select_index(Review* review[], int count);
+int select_index(Review* review[], int count, const char *prompt);
 int showMenu();                         // 메뉴를 보여주고 입력받은 값을 리턴한다.
 int showReadMenu();                     // Read의 메뉴를 보여주고 입력받은 값을 리턴한다.

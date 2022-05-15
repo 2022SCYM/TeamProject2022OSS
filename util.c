@@ -39,3 +39,17 @@ int ispuredigit(char str[]){
 	else
 		return ispuredigit(&str[1]);
 }
+
+// const char* itoa_(int val){
+// 	char *a = malloc(sizeof(char)*20);
+// 	a[0] = 0;
+// 	int i = 0;
+// 	do{
+// 		i = val%10;
+// 		val = val/10;
+// 		strcpy(&a[1],a);
+// 		a[0] = i+'0';
+// 	}while(val>0);
+// 	free(a);
+// 	return b;
+// }
