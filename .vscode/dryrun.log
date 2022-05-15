@@ -1,0 +1,6 @@
+make.exe --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/c/Users/Uranai/OSS/TeamProject/TeamProject2022OSS'
+gcc    -c -o util.o util.c
+gcc -o review review.c util.o -DTESTWRITE
+make: Leaving directory '/c/Users/Uranai/OSS/TeamProject/TeamProject2022OSS'
+ 
