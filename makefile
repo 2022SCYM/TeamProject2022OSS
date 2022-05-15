@@ -21,6 +21,9 @@ testread: review.c util.o
 testcond: review.c util.o
 	$(CC) -o review $^ -DTESTCONDI
 
+testfile: review.c util.o
+	$(CC) -o review $^ -DTESTFILE
+
 clean:
 	$(DELFUNC) $(TARG)
 	$(DELFUNC) review

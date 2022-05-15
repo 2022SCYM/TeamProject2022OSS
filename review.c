@@ -168,8 +168,30 @@ void del(Review** review){							// 리뷰를 삭제한다. 입력값은 리뷰 
 	}
 }
 
-void save(Review* review[], int count);             // 리뷰 목록을 파일에 저장한다. 입력값은 리뷰 구조체 배열과 갯수이다.
-int load(Review* review[]);                         // 리뷰 목록을 파일에서 불러온다. 입력값은 리뷰 구조체 배열이다.
+void save(Review* review[], int count){             // 리뷰 목록을 파일에 저장한다. 입력값은 리뷰 구조체 배열과 갯수이다.
+	FILE *fp = fopen("data.txt","w");
+	for(int i = 0; i<count; i++){
+		fprintf(fp,"%s %d %d %s\n",review[i]->nickname,review[i]->recommend,review[i]->rating,review[i]->content);
+	}
+	fclose(fp);
+}
+
+int load(Review* review[]){                         // 리뷰 목록을 파일에서 불러온다. 입력값은 리뷰 구조체 배열이다.
+	FILE *fp = fopen("data.txt","r");
+	int count = 0;
+	while(1){
+		Review *tmp = (Review*)malloc(sizeof(Review));
+		fscanf(fp,"%s",tmp->nickname);
+		if(feof(fp))
+			break;
+		fscanf(fp,"%d %d %[^\n]",&tmp->recommend,&tmp->rating,tmp->content);
+		review[count] = tmp;
+		count++;
+	}
+	fclose(fp);
+	return count;
+}
+
 int select_index(Review* review[], int count);
 
 #ifdef TESTWRITE
@@ -271,5 +293,36 @@ int main(){
 	read_conditional(a,3);
 	printf("=========\n");
 	search(a,3);
+}
+#endif
+
+#ifdef TESTFILE
+int main(){
+	Review *a[3];
+	
+	a[0] = (Review *)malloc(sizeof(Review));
+	strcpy(a[0]->nickname,"bob");
+	strcpy(a[0]->content,"강의에 대한 리뷰");
+	a[0]->recommend = 1;
+	a[0]->rating = 3;
+	
+	a[1] = (Review *)malloc(sizeof(Review));
+	strcpy(a[1]->nickname,"steve");
+	strcpy(a[1]->content,"강의에 대한 리뷰2");
+	a[1]->recommend = 1;
+	a[1]->rating = 8;
+
+	a[2] = (Review *)malloc(sizeof(Review));
+	strcpy(a[2]->nickname,"dave");
+	strcpy(a[2]->content,"강의에 대한 리뷰3");
+	a[2]->recommend = 1;
+	a[2]->rating = 4;
+
+	save(a,3);
+
+	Review *b[3];
+	load(b);
+
+	read_all(b,3);
 }
 #endif
