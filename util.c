@@ -53,9 +53,3 @@ int ispuredigit(char str[]){
 // 	free(a);
 // 	return b;
 // }
-
-int main(){
-	char buffer[20];
-	const char *b = itoa(2567,buffer,10);
-	printf("asdasd"b);
-}

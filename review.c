@@ -188,7 +188,28 @@ int load(Review* review[]){                         // ë¦¬ë·° ëª©ë¡?„ ?ŒŒ?¼?—
 	return count;
 }
 
-int select_index(Review* review[], int count);
+int check1tocount(float input){
+	return input == (int) input && input>=1 && input<=rtmp;
+}
+
+int select_index(Review* review[], int count,const char *prompt){
+	int idx = 0;
+	char txt[50];
+	sprintf(txt,"1ºÎÅÍ %d±îÁöÀÇ ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä\n>",count);
+	rtmp = count;
+	while(1){
+		printf(prompt);
+		idx = (int)right_input_float(check1tocount,(const char*)txt)-1;
+		if(review[idx]!=NULL)
+			break;
+		printf("Á¸ÀçÇÏÁö ¾Ê´Â Ç×¸ñÀÔ´Ï´Ù.");
+	}
+	return idx;
+}
+
+int check0to7(float input){
+	return (int) input == input && input>=0 &&input<=7;
+}
 
 int showMenu() {									// ¸Þ´º¸¦ º¸¿©ÁÖ°í ÀÔ·Â¹ÞÀº °ªÀ» ¸®ÅÏÇÑ´Ù.
 	printf("\nOSS °­ÀÇ¿¡ ´ëÇØ ´À³¤ Á¡ÀÌ³ª ¹Ù¶ó´Â Á¡À» ÀÚÀ¯·Ó°Ô ÀÛ¼ºÇÏ°í °øÀ¯ÇÒ ¼ö ÀÖ½À´Ï´Ù.\n");
@@ -199,10 +220,9 @@ int showMenu() {									// ¸Þ´º¸¦ º¸¿©ÁÖ°í ÀÔ·Â¹ÞÀº °ªÀ» ¸®ÅÏÇÑ´Ù.
 	printf("4. ¸®ºä »èÁ¦\t\t\t0. Á¾·á\n");
 	printf("===============================================================================\n");
 	printf("¿øÇÏ½Ã´Â ¸Þ´º¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä.  ");
-	int menu;
-	scanf("%d", &menu);
-	return menu;
+	return (int)right_input_float(check0to7,"0 ºÎÅÍ 7 ±îÁöÀÇ ¼ýÀÚ¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä\n>");
 }
+
 int showReadMenu() {                    // ReadÀÇ ¸Þ´º¸¦ º¸¿©ÁÖ°í ÀÔ·Â¹ÞÀº °ªÀ» ¸®ÅÏÇÑ´Ù.
 	int menu;
 	printf("===============================\n");
@@ -213,9 +233,9 @@ int showReadMenu() {                    // ReadÀÇ ¸Þ´º¸¦ º¸¿©ÁÖ°í ÀÔ·Â¹ÞÀº °ªÀ» 
 	printf("5. º°Á¡À¸·Î Á¶È¸\n");
 	printf("===============================\n");
 	printf("¿øÇÏ½Ã´Â ¸Þ´º¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä.  ");
-	scanf("%d", &menu);
-	return menu;
+	return (int)right_input_float(check_1to5,"1 ºÎÅÍ 5 ±îÁöÀÇ ¼ýÀÚ¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä\n>");
 }
+
 #ifdef TESTWRITE
 int main(){
 	Review *a;
