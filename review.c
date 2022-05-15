@@ -324,19 +324,19 @@ int main(){
 	
 	a[0] = (Review *)malloc(sizeof(Review));
 	strcpy(a[0]->nickname,"bob");
-	strcpy(a[0]->content,"ê°•ì˜?— ????•œ ë¦¬ë·°");
+	strcpy(a[0]->content,"°­ÀÇ¿¡ ´ëÇÑ ¸®ºä");
 	a[0]->recommend = 1;
 	a[0]->rating = 3;
 	
 	a[1] = (Review *)malloc(sizeof(Review));
 	strcpy(a[1]->nickname,"steve");
-	strcpy(a[1]->content,"ê°•ì˜?— ????•œ ë¦¬ë·°2");
+	strcpy(a[1]->content,"°­ÀÇ¿¡ ´ëÇÑ ¸®ºä2");
 	a[1]->recommend = 1;
 	a[1]->rating = 8;
 
 	a[2] = (Review *)malloc(sizeof(Review));
 	strcpy(a[2]->nickname,"dave");
-	strcpy(a[2]->content,"ê°•ì˜?— ????•œ ë¦¬ë·°3");
+	strcpy(a[2]->content,"°­ÀÇ¿¡ ´ëÇÑ ¸®ºä3");
 	a[2]->recommend = 1;
 	a[2]->rating = 4;
 
