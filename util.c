@@ -1,7 +1,3 @@
-#include <ctype.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "util.h"
 
 char tmp[20] = "";

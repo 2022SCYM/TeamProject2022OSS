@@ -1,3 +1,8 @@
+#include <ctype.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 void gets_(char *buf,int size);
 int isalldigit(char str[]);
 int ispuredigit(char str[]);

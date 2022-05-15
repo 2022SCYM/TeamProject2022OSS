@@ -1,8 +1,4 @@
 #include "review.h"
-#include "util.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 int check_0or1(float input){
 	return input==1||input==0;
@@ -18,27 +14,27 @@ int check_0to5(float input){
 	return input>=0&&input<=5;
 }
 
-void copy_review(Review *dest, Review *sour){		// ë¦¬ë·° êµ¬ì¡°ì²´ì˜ ë‚´ìš©ë¬¼ì„ ë³µì‚¬í•˜ì—¬ destì— ì €ì¥
+void copy_review(Review *dest, Review *sour){		// ¸®ºä ±¸Á¶Ã¼ÀÇ ³»¿ë¹°À» º¹»çÇÏ¿© dest¿¡ ÀúÀå
 	strcpy(dest->content,sour->content);
 	strcpy(dest->nickname,sour->nickname);
 	dest->rating = sour->rating;
 	dest->recommend = sour->recommend;
 }
 
-void write(Review** review){						// ë¦¬ë·°ë¥¼ ì‘ì„±í•œë‹¤. ì…ë ¥ê°’ì€ ë¦¬ë·° êµ¬ì¡°ì²´ ë°°ì—´ê³¼ ê°¯ìˆ˜ì´ë‹¤.
+void write(Review** review){						// ¸®ºä¸¦ ÀÛ¼ºÇÑ´Ù. ÀÔ·Â°ªÀº ¸®ºä ±¸Á¶Ã¼ ¹è¿­°ú °¹¼öÀÌ´Ù.
 	*review = (Review *)malloc(sizeof(Review));
-	printf("ì‘ì„±ì ì´ë¦„\n> ");
+	printf("ÀÛ¼ºÀÚ ÀÌ¸§\n> ");
 	scanf("%s",(*review)->nickname);
 	getchar();
-	printf("ë‚´ìš©\n> ");
+	printf("³»¿ë\n> ");
 	gets_((*review)->content,200);
-	printf("ì¶”ì²œí•˜ì‹œë©´ 1ì„, ì•„ë‹ˆë©´ 0ì„ ì…ë ¥í•´ì£¼ì„¸ìš”\n> ");
-	(*review)->recommend = (int)right_input_float(check_0or1,"ERROR) 1 ë˜ëŠ” 0ì„ ì…ë ¥í•´ì£¼ì„¸ìš”\n> ");
-	printf("ë³„ì ì„ 1ì ë¶€í„° 5ì ê¹Œì§€ ì…ë ¥í•´ì£¼ì„¸ìš”\n> ");
-	(*review)->rating = (int)2*right_input_float(check_1to5,"ERROR) 1 ì—ì„œ 5ì˜ ê°’ì„ .5ë‹¨ìœ„ë¡œ ì…ë ¥í•´ì£¼ì„¸ìš”\n> ");
+	printf("ÃßÃµÇÏ½Ã¸é 1À», ¾Æ´Ï¸é 0À» ÀÔ·ÂÇØÁÖ¼¼¿ä\n> ");
+	(*review)->recommend = (int)right_input_float(check_0or1,"ERROR) 1 ¶Ç´Â 0À» ÀÔ·ÂÇØÁÖ¼¼¿ä\n> ");
+	printf("º°Á¡À» 1Á¡ºÎÅÍ 5Á¡±îÁö ÀÔ·ÂÇØÁÖ¼¼¿ä\n> ");
+	(*review)->rating = (int)2*right_input_float(check_1to5,"ERROR) 1 ¿¡¼­ 5ÀÇ °ªÀ» .5´ÜÀ§·Î ÀÔ·ÂÇØÁÖ¼¼¿ä\n> ");
 }
 
-void read_all(Review* review[], int count) {       // ë¦¬ë·° ëª©ë¡ì„ ì „ì²´ ì¡°íšŒ. ì…ë ¥ê°’ì€ ë¦¬ë·° êµ¬ì¡°ì²´ ë°°ì—´ê³¼ ê°¯ìˆ˜ì´ë‹¤.
+void read_all(Review* review[], int count) {       // ¸®ºä ¸ñ·ÏÀ» ÀüÃ¼ Á¶È¸. ÀÔ·Â°ªÀº ¸®ºä ±¸Á¶Ã¼ ¹è¿­°ú °¹¼öÀÌ´Ù.
 	for(int i=1; i<=count; i++) {
 		if(review[i-1] != NULL) {
 			printf("No. %d\n", i);
@@ -47,7 +43,7 @@ void read_all(Review* review[], int count) {       // ë¦¬ë·° ëª©ë¡ì„ ì „ì²´ ì¡
 	}	
 }
 
-void read_by_condition(Review* review[], int count, int func(Review)){	// íŠ¹ì • ì¡°ê±´ì„ ë§Œì¡±í•˜ëŠ” ë¦¬ë·°ë§Œ READ
+void read_by_condition(Review* review[], int count, int func(Review)){	// Æ¯Á¤ Á¶°ÇÀ» ¸¸Á·ÇÏ´Â ¸®ºä¸¸ READ
 	int c = 0;
 	for(int i = 0; i<count; i++){
 		if(review[i]!=NULL&&func(*review[i])){
@@ -57,7 +53,7 @@ void read_by_condition(Review* review[], int count, int func(Review)){	// íŠ¹ì •
 		}
 	}
 	if(!c)
-		printf("ì¡°ê±´ì„ ë§Œì¡±í•˜ëŠ” ë°ì´í„°ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.\n");
+		printf("Á¶°ÇÀ» ¸¸Á·ÇÏ´Â µ¥ÀÌÅÍ°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.\n");
 }
 
 int rtmp = 0;
@@ -75,51 +71,51 @@ int nickname(Review rev){
 	return !strcmp(rev.nickname,ntmp);
 }
 
-void read_recommend(Review* review[], int count) {  // ë¦¬ë·° ëª©ë¡ì¤‘ ì¶”ì²œ ì—¬ë¶€ê°€ trueì¸ ëª©ë¡ë§Œ ì¡°íšŒ. ì…ë ¥ê°’ì€ ë¦¬ë·° êµ¬ì¡°ì²´ ë°°ì—´ê³¼ ê°¯ìˆ˜ì´ë‹¤.
+void read_recommend(Review* review[], int count) {  // ¸®ºä ¸ñ·ÏÁß ÃßÃµ ¿©ºÎ°¡ trueÀÎ ¸ñ·Ï¸¸ Á¶È¸. ÀÔ·Â°ªÀº ¸®ºä ±¸Á¶Ã¼ ¹è¿­°ú °¹¼öÀÌ´Ù.
 	rtmp = 1;
 	read_by_condition(review,count,recommend);
 }
 
-void read_notrecommend(Review* review[], int count) {  // ë¦¬ë·° ëª©ë¡ì¤‘ ì¶”ì²œ ì—¬ë¶€ê°€ falseì¸ ëª©ë¡ë§Œ ì¡°íšŒ. ì…ë ¥ê°’ì€ ë¦¬ë·° êµ¬ì¡°ì²´ ë°°ì—´ê³¼ ê°¯ìˆ˜ì´ë‹¤.
+void read_notrecommend(Review* review[], int count) {  // ¸®ºä ¸ñ·ÏÁß ÃßÃµ ¿©ºÎ°¡ falseÀÎ ¸ñ·Ï¸¸ Á¶È¸. ÀÔ·Â°ªÀº ¸®ºä ±¸Á¶Ã¼ ¹è¿­°ú °¹¼öÀÌ´Ù.
 	rtmp = 0;
 	read_by_condition(review,count,recommend);
 }
 
-void read_conditional(Review* review[], int count) { // ë¦¬ë·° ëª©ë¡ì¤‘ ë³„ì ì„ ê¸°ì¤€ìœ¼ë¡œ ì¡°ê±´ë¶€ë¡œ ì¡°íšŒí•œë‹¤. ì…ë ¥ê°’ì€ ë¦¬ë·° êµ¬ì¡°ì²´ ë°°ì—´ê³¼ ê°¯ìˆ˜ì´ë‹¤.
-	printf("ëª‡ ì  ì´ìƒì˜ ë¦¬ë·°ë¥¼ ë³´ì‹œê² ìŠµë‹ˆê¹Œ? (1~5)\n> ");
-	rtmp = (int)2*right_input_float(check_1to5,"ERROR) 1 ì—ì„œ 5ì˜ ê°’ì„ .5ë‹¨ìœ„ë¡œ ì…ë ¥í•´ì£¼ì„¸ìš”\n> ");
+void read_conditional(Review* review[], int count) { // ¸®ºä ¸ñ·ÏÁß º°Á¡À» ±âÁØÀ¸·Î Á¶°ÇºÎ·Î Á¶È¸ÇÑ´Ù. ÀÔ·Â°ªÀº ¸®ºä ±¸Á¶Ã¼ ¹è¿­°ú °¹¼öÀÌ´Ù.
+	printf("¸î Á¡ ÀÌ»óÀÇ ¸®ºä¸¦ º¸½Ã°Ú½À´Ï±î? (1~5)\n> ");
+	rtmp = (int)2*right_input_float(check_1to5,"ERROR) 1 ¿¡¼­ 5ÀÇ °ªÀ» .5´ÜÀ§·Î ÀÔ·ÂÇØÁÖ¼¼¿ä\n> ");
 	read_by_condition(review,count,rating);
 }
 
-void read(Review* review) {            // ë¦¬ë·° ëª©ë¡ì„ ì¡°íšŒí•œë‹¤. ì…ë ¥ê°’ì€ ë¦¬ë·° êµ¬ì¡°ì²´ì´ë‹¤.
+void read(Review* review) {            // ¸®ºä ¸ñ·ÏÀ» Á¶È¸ÇÑ´Ù. ÀÔ·Â°ªÀº ¸®ºä ±¸Á¶Ã¼ÀÌ´Ù.
 	if(review != NULL) {
-		printf("\tì‘ì„±ì : %s\n", review->nickname);
+		printf("\tÀÛ¼ºÀÚ : %s\n", review->nickname);
 		printf("\t%s\n", review->content);
-		if(review->recommend==1) printf("\tì¶”ì²œ!\t");
-		else printf("\tì¶”ì²œ ì•ˆí•¨...\t");
-		printf("ë³„ì  : %.1f\n", review->rating/2.0);
+		if(review->recommend==1) printf("\tÃßÃµ!\t");
+		else printf("\tÃßÃµ ¾ÈÇÔ...\t");
+		printf("º°Á¡ : %.1f\n", review->rating/2.0);
 	}
-	else printf("ë°ì´í„°ê°€ ì—†ìŠµë‹ˆë‹¤.\n");
+	else printf("µ¥ÀÌÅÍ°¡ ¾ø½À´Ï´Ù.\n");
 }
 
-void search(Review* review[], int count) {          // ë¦¬ë·°ì˜ ì‘ì„±ìë¥¼ ê²€ìƒ‰í•œë‹¤. ì…ë ¥ê°’ì€ ë¦¬ë·° êµ¬ì¡°ì²´ ë°°ì—´ê³¼ ê°¯ìˆ˜ì´ë‹¤.
-	printf("ê²€ìƒ‰í•  ì‘ì„±ìì˜ ì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš”.\n> ");
+void search(Review* review[], int count) {          // ¸®ºäÀÇ ÀÛ¼ºÀÚ¸¦ °Ë»öÇÑ´Ù. ÀÔ·Â°ªÀº ¸®ºä ±¸Á¶Ã¼ ¹è¿­°ú °¹¼öÀÌ´Ù.
+	printf("°Ë»öÇÒ ÀÛ¼ºÀÚÀÇ ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä.\n> ");
 	scanf("%s",ntmp);
 	read_by_condition(review,count,nickname);
 }
 
-int edit_menu(){									// ë¦¬ë·° ìˆ˜ì • ë©”ë‰´. ë¦¬í„´ê°’ì€ ì„ íƒí•œ ë©”ë‰´
-	printf("1. ì‘ì„±ì ìˆ˜ì •\n");
-	printf("2. ë‚´ìš© ìˆ˜ì •\n");
-	printf("3. ì¶”ì²œ ìˆ˜ì •\n");
-	printf("4. í‰ì  ìˆ˜ì •\n");
-	printf("5. ì™„ë£Œ\n");
-	printf("0. ì·¨ì†Œ\n");
+int edit_menu(){									// ¸®ºä ¼öÁ¤ ¸Ş´º. ¸®ÅÏ°ªÀº ¼±ÅÃÇÑ ¸Ş´º
+	printf("1. ÀÛ¼ºÀÚ ¼öÁ¤\n");
+	printf("2. ³»¿ë ¼öÁ¤\n");
+	printf("3. ÃßÃµ ¼öÁ¤\n");
+	printf("4. ÆòÁ¡ ¼öÁ¤\n");
+	printf("5. ¿Ï·á\n");
+	printf("0. Ãë¼Ò\n");
 	printf("> ");
-	return (int)right_input_float(check_0to5,"ERROR) 0 ì—ì„œ 5ì˜ ê°’ì„ ì…ë ¥í•´ì£¼ì„¸ìš”\n> ");
+	return (int)right_input_float(check_0to5,"ERROR) 0 ¿¡¼­ 5ÀÇ °ªÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä\n> ");
 }
 
-void edit(Review** review){							// ë¦¬ë·°ë¥¼ ìˆ˜ì •í•œë‹¤. ì…ë ¥ê°’ì€ ë¦¬ë·° êµ¬ì¡°ì²´ ë°°ì—´ê³¼ ê°¯ìˆ˜ì´ë‹¤.
+void edit(Review** review){							// ¸®ºä¸¦ ¼öÁ¤ÇÑ´Ù. ÀÔ·Â°ªÀº ¸®ºä ±¸Á¶Ã¼ ¹è¿­°ú °¹¼öÀÌ´Ù.
 	Review *temp = (Review *)malloc(sizeof(Review));
 	copy_review(temp,(*review));
 
@@ -129,27 +125,27 @@ void edit(Review** review){							// ë¦¬ë·°ë¥¼ ìˆ˜ì •í•œë‹¤. ì…ë ¥ê°’ì€ ë¦¬ë·°
 		select = edit_menu();
 		switch(select){
 			case 1:
-				printf("ì‘ì„±ì ì´ë¦„\n> ");
+				printf("ÀÛ¼ºÀÚ ÀÌ¸§\n> ");
 				scanf("%s",temp->nickname);
 				getchar();
 				break;
 			case 2:
-				printf("ë‚´ìš©\n> ");
+				printf("³»¿ë\n> ");
 				gets_(temp->content,200);
 				break;
 			case 3:
-				printf("ì¶”ì²œ : 1 / ë¹„ì¶”ì²œ : 0\n> ");
-				temp->recommend = (int)right_input_float(check_0or1,"ERROR) 1 ë˜ëŠ” 0ì„ ì…ë ¥í•´ì£¼ì„¸ìš”\n> ");
+				printf("ÃßÃµ : 1 / ºñÃßÃµ : 0\n> ");
+				temp->recommend = (int)right_input_float(check_0or1,"ERROR) 1 ¶Ç´Â 0À» ÀÔ·ÂÇØÁÖ¼¼¿ä\n> ");
 				break;
 			case 4:
-				printf("ë³„ì ì„ 1ì ë¶€í„° 5ì ê¹Œì§€ ì…ë ¥í•´ì£¼ì„¸ìš”\n> ");
-				temp->rating = (int)2*right_input_float(check_1to5,"ERROR) 1 ì—ì„œ 5ì˜ ê°’ì„ .5ë‹¨ìœ„ë¡œ ì…ë ¥í•´ì£¼ì„¸ìš”\n> ");
+				printf("º°Á¡À» 1Á¡ºÎÅÍ 5Á¡±îÁö ÀÔ·ÂÇØÁÖ¼¼¿ä\n> ");
+				temp->rating = (int)2*right_input_float(check_1to5,"ERROR) 1 ¿¡¼­ 5ÀÇ °ªÀ» .5´ÜÀ§·Î ÀÔ·ÂÇØÁÖ¼¼¿ä\n> ");
 				break;
 			case 0:
-				printf("ì·¨ì†Œí•©ë‹ˆë‹¤.\n");
+				printf("Ãë¼ÒÇÕ´Ï´Ù.\n");
 				break;
 			case 5:
-				printf("ì €ì¥í•©ë‹ˆë‹¤.\n");
+				printf("ÀúÀåÇÕ´Ï´Ù.\n");
 				break;
 		}
 	}
@@ -158,20 +154,51 @@ void edit(Review** review){							// ë¦¬ë·°ë¥¼ ìˆ˜ì •í•œë‹¤. ì…ë ¥ê°’ì€ ë¦¬ë·°
 	free(temp);
 }
 
-void del(Review** review){							// ë¦¬ë·°ë¥¼ ì‚­ì œí•œë‹¤. ì…ë ¥ê°’ì€ ë¦¬ë·° êµ¬ì¡°ì²´ ë°°ì—´ê³¼ ê°¯ìˆ˜ì´ë‹¤.
-	printf("ì •ë§ë¡œ ì´ í•­ëª©ì„ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?\n");
-	printf("í™•ì¸ 1 / ì·¨ì†Œ 0\n> ");
-	int select = (int)right_input_float(check_0or1,"ERROR) 1 ë˜ëŠ” 0ì„ ì…ë ¥í•´ì£¼ì„¸ìš”\n> ");
+void del(Review** review){							// ¸®ºä¸¦ »èÁ¦ÇÑ´Ù. ÀÔ·Â°ªÀº ¸®ºä ±¸Á¶Ã¼ ¹è¿­°ú °¹¼öÀÌ´Ù.
+	printf("Á¤¸»·Î ÀÌ Ç×¸ñÀ» »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?\n");
+	printf("È®ÀÎ 1 / Ãë¼Ò 0\n> ");
+	int select = (int)right_input_float(check_0or1,"ERROR) 1 ¶Ç´Â 0À» ÀÔ·ÂÇØÁÖ¼¼¿ä\n> ");
 	if(select==1){
 		free(*review);
 		*review = NULL;
 	}
 }
 
-void save(Review* review[], int count);             // ë¦¬ë·° ëª©ë¡ì„ íŒŒì¼ì— ì €ì¥í•œë‹¤. ì…ë ¥ê°’ì€ ë¦¬ë·° êµ¬ì¡°ì²´ ë°°ì—´ê³¼ ê°¯ìˆ˜ì´ë‹¤.
-int load(Review* review[]);                         // ë¦¬ë·° ëª©ë¡ì„ íŒŒì¼ì—ì„œ ë¶ˆëŸ¬ì˜¨ë‹¤. ì…ë ¥ê°’ì€ ë¦¬ë·° êµ¬ì¡°ì²´ ë°°ì—´ì´ë‹¤.
-int select_index(Review* review[], int count);
+void save(Review* review[], int count) {            // ¸®ºä ¸ñ·ÏÀ» ÆÄÀÏ¿¡ ÀúÀåÇÑ´Ù. ÀÔ·Â°ªÀº ¸®ºä ±¸Á¶Ã¼ ¹è¿­°ú °¹¼öÀÌ´Ù.
 
+}
+int load(Review* review[]) {                        // ¸®ºä ¸ñ·ÏÀ» ÆÄÀÏ¿¡¼­ ºÒ·¯¿Â´Ù. ÀÔ·Â°ªÀº ¸®ºä ±¸Á¶Ã¼ ¹è¿­ÀÌ´Ù.
+
+}
+int select_index(Review* review[], int count) {
+
+}
+int showMenu() {									// ¸Ş´º¸¦ º¸¿©ÁÖ°í ÀÔ·Â¹ŞÀº °ªÀ» ¸®ÅÏÇÑ´Ù.
+	printf("\nOSS °­ÀÇ¿¡ ´ëÇØ ´À³¤ Á¡ÀÌ³ª ¹Ù¶ó´Â Á¡À» ÀÚÀ¯·Ó°Ô ÀÛ¼ºÇÏ°í °øÀ¯ÇÒ ¼ö ÀÖ½À´Ï´Ù.\n");
+	printf("===============================================================================\n");
+	printf("1. ¸®ºä ÀÛ¼º\t\t\t5. ¸®ºä °Ë»ö\n");
+	printf("2. ¸®ºä Á¶È¸\t\t\t6. ¸®ºä ÆÄÀÏ ÀúÀå\n");
+	printf("3. ¸®ºä ¼öÁ¤\t\t\t7. ¸®ºä ÆÄÀÏ ºÒ·¯¿À±â\n");
+	printf("4. ¸®ºä »èÁ¦\t\t\t0. Á¾·á\n");
+	printf("===============================================================================\n");
+	printf("¿øÇÏ½Ã´Â ¸Ş´º¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä.  ");
+	int menu;
+	scanf("%d", &menu);
+	return menu;
+}
+int showReadMenu() {                    // ReadÀÇ ¸Ş´º¸¦ º¸¿©ÁÖ°í ÀÔ·Â¹ŞÀº °ªÀ» ¸®ÅÏÇÑ´Ù.
+	int menu;
+	printf("===============================\n");
+	printf("1. ÇÏ³ª¸¸ Á¶È¸\n");
+	printf("2. ÀüÃ¼ Á¶È¸\n");
+	printf("3. ÃßÃµÇÑ ¸®ºä¸¸ Á¶È¸\n");
+	printf("4. ÃßÃµÇÏÁö ¾ÊÀº ¸®ºä¸¸ Á¶È¸\n");
+	printf("5. º°Á¡À¸·Î Á¶È¸\n");
+	printf("===============================\n");
+	printf("¿øÇÏ½Ã´Â ¸Ş´º¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä.  ");
+	scanf("%d", &menu);
+	return menu;
+}
 #ifdef TESTWRITE
 int main(){
 	Review *a;
@@ -185,8 +212,8 @@ int main(){
 int main(){
 	Review *a;
 	a = (Review *)malloc(sizeof(Review));
-	strcpy(a->nickname,"ë‹‰ë„¤ì„");
-	strcpy(a->content,"ê°•ì˜ì— ëŒ€í•œ ë¦¬ë·°");
+	strcpy(a->nickname,"´Ğ³×ÀÓ");
+	strcpy(a->content,"°­ÀÇ¿¡ ´ëÇÑ ¸®ºä");
 	a->recommend = 1;
 	a->rating = 3;
 	printf("%s %s %d %d\n",a->nickname,a->content,a->recommend,a->rating);
@@ -200,8 +227,8 @@ int main(){
 int main(){
 	Review *a;
 	a = (Review *)malloc(sizeof(Review));
-	strcpy(a->nickname,"ë‹‰ë„¤ì„");
-	strcpy(a->content,"ê°•ì˜ì— ëŒ€í•œ ë¦¬ë·°");
+	strcpy(a->nickname,"´Ğ³×ÀÓ");
+	strcpy(a->content,"°­ÀÇ¿¡ ´ëÇÑ ¸®ºä");
 	a->recommend = 1;
 	a->rating = 3;
 	printf("%s %s %d %d\n",a->nickname,a->content,a->recommend,a->rating);
@@ -221,20 +248,20 @@ int main(){
 	Review *a[3];
 	
 	a[0] = (Review *)malloc(sizeof(Review));
-	strcpy(a[0]->nickname,"ë‹‰ë„¤ì„");
-	strcpy(a[0]->content,"ê°•ì˜ì— ëŒ€í•œ ë¦¬ë·°");
+	strcpy(a[0]->nickname,"´Ğ³×ÀÓ");
+	strcpy(a[0]->content,"°­ÀÇ¿¡ ´ëÇÑ ¸®ºä");
 	a[0]->recommend = 1;
 	a[0]->rating = 3;
 	
 	a[1] = (Review *)malloc(sizeof(Review));
-	strcpy(a[1]->nickname,"ë‹‰ë„¤ì„2");
-	strcpy(a[1]->content,"ê°•ì˜ì— ëŒ€í•œ ë¦¬ë·°2");
+	strcpy(a[1]->nickname,"´Ğ³×ÀÓ2");
+	strcpy(a[1]->content,"°­ÀÇ¿¡ ´ëÇÑ ¸®ºä2");
 	a[1]->recommend = 1;
 	a[1]->rating = 8;
 
 	a[2] = (Review *)malloc(sizeof(Review));
-	strcpy(a[2]->nickname,"ë‹‰ë„¤ì„3");
-	strcpy(a[2]->content,"ê°•ì˜ì— ëŒ€í•œ ë¦¬ë·°3");
+	strcpy(a[2]->nickname,"´Ğ³×ÀÓ3");
+	strcpy(a[2]->content,"°­ÀÇ¿¡ ´ëÇÑ ¸®ºä3");
 	a[2]->recommend = 1;
 	a[2]->rating = 4;
 
@@ -248,19 +275,19 @@ int main(){
 	
 	a[0] = (Review *)malloc(sizeof(Review));
 	strcpy(a[0]->nickname,"bob");
-	strcpy(a[0]->content,"ê°•ì˜ì— ëŒ€í•œ ë¦¬ë·°");
+	strcpy(a[0]->content,"°­ÀÇ¿¡ ´ëÇÑ ¸®ºä");
 	a[0]->recommend = 1;
 	a[0]->rating = 3;
 	
 	a[1] = (Review *)malloc(sizeof(Review));
 	strcpy(a[1]->nickname,"steve");
-	strcpy(a[1]->content,"ê°•ì˜ì— ëŒ€í•œ ë¦¬ë·°2");
+	strcpy(a[1]->content,"°­ÀÇ¿¡ ´ëÇÑ ¸®ºä2");
 	a[1]->recommend = 1;
 	a[1]->rating = 8;
 
 	a[2] = (Review *)malloc(sizeof(Review));
 	strcpy(a[2]->nickname,"dave");
-	strcpy(a[2]->content,"ê°•ì˜ì— ëŒ€í•œ ë¦¬ë·°3");
+	strcpy(a[2]->content,"°­ÀÇ¿¡ ´ëÇÑ ¸®ºä3");
 	a[2]->recommend = 1;
 	a[2]->rating = 4;
 	
