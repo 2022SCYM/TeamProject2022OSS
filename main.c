@@ -1,3 +1,5 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include "review.h"
 #include "util.h"
 #define MAX 100
@@ -5,7 +7,7 @@
 int main(){
 	Review *a[MAX];
     int menu = -1;
-    int count = load(a);
+    int count = 0;
     while(menu) {
         menu = showMenu();
 		switch(menu){
@@ -21,7 +23,7 @@ int main(){
             int readMenu = showReadMenu();
 			switch(readMenu){
 				case 1:
-					read(a[select_index(a,count,"조회할 번호를 입력해 주세요.\n")]);
+					read(a[select_index(a,count,"조회할 번호를 입력해 주세요.\n> ")]);
 					break;
 				case 2:
 					read_all(a,count);
@@ -39,11 +41,11 @@ int main(){
 			break;
         case 3:
 			read_all(a,count);
-			edit(&a[select_index(a,count,"수정할 번호를 입력하세요.")]);
+			edit(&a[select_index(a,count,"수정할 번호를 입력하세요.\n> ")]);
 			break;
         case 4:
 			read_all(a,count);
-			del(&a[select_index(a,count,"삭제할 번호를 입력하세요.")]);
+			del(&a[select_index(a,count,"삭제할 번호를 입력하세요.\n> ")]);
 			break;
 		case 5:
 			search(a,count);
@@ -52,7 +54,7 @@ int main(){
 			save(a,count);
 			break;
 		case 7:
-			count = load(a);
+			count = load(a,count);
 			break;
 		case 0:
 			break;

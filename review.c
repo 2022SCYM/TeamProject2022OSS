@@ -1,4 +1,8 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 #include "review.h"
+#include "util.h"
 
 int check_0or1(float input){
 	return input==1||input==0;
@@ -101,16 +105,19 @@ void read(Review* review) {            // 리뷰 목록을 조회한다. 입력값은 리뷰 구
 void search(Review* review[], int count) {          // 리뷰의 작성자를 검색한다. 입력값은 리뷰 구조체 배열과 갯수이다.
 	printf("검색할 작성자의 이름을 입력하세요.\n> ");
 	scanf("%s",ntmp);
+	getchar();
 	read_by_condition(review,count,nickname);
 }
 
 int edit_menu(){									// 리뷰 수정 메뉴. 리턴값은 선택한 메뉴
+	printf("===============================================================================\n");
 	printf("1. 작성자 수정\n");
 	printf("2. 내용 수정\n");
 	printf("3. 추천 수정\n");
 	printf("4. 평점 수정\n");
 	printf("5. 완료\n");
 	printf("0. 취소\n");
+	printf("===============================================================================\n");
 	printf("> ");
 	return (int)right_input_float(check_0to5,"ERROR) 0 에서 5의 값을 입력해주세요\n> ");
 }
@@ -121,6 +128,7 @@ void edit(Review** review){							// 리뷰를 수정한다. 입력값은 리뷰 구조체 배열�
 
 	int select = -1;
 	while(select!=0&&select!=5){
+		printf("===============================\n");
 		read(temp);
 		select = edit_menu();
 		switch(select){
@@ -167,6 +175,7 @@ void del(Review** review){							// 리뷰를 삭제한다. 입력값은 리뷰 구조체 배열과
 void save(Review* review[], int count){             // 리뷰 목록을 파일에 저장한다. 입력값은 리뷰 구조체 배열과 갯수이다.
 	FILE *fp = fopen("data.txt","w");
 	for(int i = 0; i<count; i++){
+		if(review[i]!=NULL)
 		fprintf(fp,"%s %d %d %s\n",review[i]->nickname,review[i]->recommend,review[i]->rating,review[i]->content);
 	}
 	fclose(fp);
@@ -206,14 +215,14 @@ int check1tocount(float input){
 int select_index(Review* review[], int count,const char *prompt){
 	int idx = 0;
 	char txt[50];
-	sprintf(txt,"1부터 %d까지의 번호를 입력해주세요\n>",count);
+	sprintf(txt,"1부터 %d까지의 번호를 입력해주세요\n> ",count);
 	rtmp = count;
 	while(1){
 		printf(prompt);
 		idx = (int)right_input_float(check1tocount,(const char*)txt)-1;
 		if(review[idx]!=NULL)
 			break;
-		printf("존재하지 않는 항목입니다.");
+		printf("존재하지 않는 항목입니다.\n");
 	}
 	return idx;
 }
@@ -230,8 +239,8 @@ int showMenu() {									// 메뉴를 보여주고 입력받은 값을 리턴한다.
 	printf("3. 리뷰 수정\t\t\t7. 리뷰 파일 불러오기\n");
 	printf("4. 리뷰 삭제\t\t\t0. 종료\n");
 	printf("===============================================================================\n");
-	printf("원하시는 메뉴를 입력해 주세요.  ");
-	return (int)right_input_float(check0to7,"0 부터 7 까지의 숫자를 입력해 주세요\n>");
+	printf("원하시는 메뉴를 입력해 주세요.\n> ");
+	return (int)right_input_float(check0to7,"0 부터 7 까지의 숫자를 입력해 주세요\n> ");
 }
 
 int showReadMenu() {                    // Read의 메뉴를 보여주고 입력받은 값을 리턴한다.
@@ -243,8 +252,8 @@ int showReadMenu() {                    // Read의 메뉴를 보여주고 입력받은 값을 
 	printf("4. 추천하지 않은 리뷰만 조회\n");
 	printf("5. 별점으로 조회\n");
 	printf("===============================\n");
-	printf("원하시는 메뉴를 입력해 주세요.  ");
-	return (int)right_input_float(check_1to5,"1 부터 5 까지의 숫자를 입력해 주세요\n>");
+	printf("원하시는 메뉴를 입력해 주세요.\n> ");
+	return (int)right_input_float(check_1to5,"1 부터 5 까지의 숫자를 입력해 주세요\n> ");
 }
 
 #ifdef TESTWRITE
