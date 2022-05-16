@@ -110,12 +110,14 @@ void search(Review* review[], int count) {          // 리뷰의 작성자를 검색한다.
 }
 
 int edit_menu(){									// 리뷰 수정 메뉴. 리턴값은 선택한 메뉴
+	printf("===============================================================================\n");
 	printf("1. 작성자 수정\n");
 	printf("2. 내용 수정\n");
 	printf("3. 추천 수정\n");
 	printf("4. 평점 수정\n");
 	printf("5. 완료\n");
 	printf("0. 취소\n");
+	printf("===============================================================================\n");
 	printf("> ");
 	return (int)right_input_float(check_0to5,"ERROR) 0 에서 5의 값을 입력해주세요\n> ");
 }
@@ -126,6 +128,7 @@ void edit(Review** review){							// 리뷰를 수정한다. 입력값은 리뷰 구조체 배열�
 
 	int select = -1;
 	while(select!=0&&select!=5){
+		printf("===============================\n");
 		read(temp);
 		select = edit_menu();
 		switch(select){
@@ -172,6 +175,7 @@ void del(Review** review){							// 리뷰를 삭제한다. 입력값은 리뷰 구조체 배열과
 void save(Review* review[], int count){             // 리뷰 목록을 파일에 저장한다. 입력값은 리뷰 구조체 배열과 갯수이다.
 	FILE *fp = fopen("data.txt","w");
 	for(int i = 0; i<count; i++){
+		if(review[i]!=NULL)
 		fprintf(fp,"%s %d %d %s\n",review[i]->nickname,review[i]->recommend,review[i]->rating,review[i]->content);
 	}
 	fclose(fp);
