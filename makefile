@@ -1,10 +1,14 @@
 CC = gcc
 TARG = review.o util.o
+MAIN = main.c
 ifeq ($(OS),Windows_NT) #delete function for different OS
 	DELFUNC = del
 else
 	DELFUNC = rm -rf
 endif
+
+review: $(MAIN) $(TARG)
+	$(CC) -o $@ $^
 
 testwrite: review.c util.o
 	$(CC) -o review $^ -DTESTWRITE
