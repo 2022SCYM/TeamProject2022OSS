@@ -172,9 +172,20 @@ void save(Review* review[], int count){             // 리뷰 목록을 파일에 저장한
 	fclose(fp);
 }
 
-int load(Review* review[]){                         // 리뷰 목록을 파일에서 불러온다. 입력값은 리뷰 구조체 배열이다.
+int load(Review* review[], int count){                         // 리뷰 목록을 파일에서 불러온다. 입력값은 리뷰 구조체 배열이다.
+	if(count>0) {
+		printf("현재 목록은 삭제됩니다. 계속 하시려면 1을 입력해주세요. ");
+		int sel = (int) right_input_float(check_0or1,"0 또는 1을 입력해주세요\n> ");
+		if(sel) {
+			for(int i = 0; i<count; i++) {
+				review[i] = NULL;
+				free(review[i]);
+			}
+		}
+		else return count;
+	}
 	FILE *fp = fopen("data.txt","r");
-	int count = 0;
+	count = 0;
 	while(1){
 		Review *tmp = (Review*)malloc(sizeof(Review));
 		fscanf(fp,"%s",tmp->nickname);
