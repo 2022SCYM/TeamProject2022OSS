@@ -54,7 +54,7 @@ int main(){
 			save(a,count);
 			break;
 		case 7:
-			count = load_conf(a,count);
+			count = load(a,count);
 			break;
 		case 0:
 			break;
