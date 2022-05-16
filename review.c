@@ -164,7 +164,7 @@ void del(Review** review){							// ¸®ºä¸¦ »èÁ¦ÇÑ´Ù. ÀÔ·Â°ªÀº ¸®ºä ±¸Á¶Ã¼ ¹è¿­°ú
 	}
 }
 
-void save(Review* review[], int count){             // ë¦¬ë·° ëª©ë¡?„ ?ŒŒ?¼?— ????¥?•œ?‹¤. ?…? ¥ê°’ì?? ë¦¬ë·° êµ¬ì¡°ì²? ë°°ì—´ê³? ê°??ˆ˜?´?‹¤.
+void save(Review* review[], int count){             // ¸®ºä ¸ñ·ÏÀ» ÆÄÀÏ¿¡ ÀúÀåÇÑ´Ù. ÀÔ·Â°ªÀº ¸®ºä ±¸Á¶Ã¼ ¹è¿­°ú °¹¼öÀÌ´Ù.
 	FILE *fp = fopen("data.txt","w");
 	for(int i = 0; i<count; i++){
 		fprintf(fp,"%s %d %d %s\n",review[i]->nickname,review[i]->recommend,review[i]->rating,review[i]->content);
@@ -172,7 +172,7 @@ void save(Review* review[], int count){             // ë¦¬ë·° ëª©ë¡?„ ?ŒŒ?¼?—
 	fclose(fp);
 }
 
-int load(Review* review[]){                         // ë¦¬ë·° ëª©ë¡?„ ?ŒŒ?¼?—?„œ ë¶ˆëŸ¬?˜¨?‹¤. ?…? ¥ê°’ì?? ë¦¬ë·° êµ¬ì¡°ì²? ë°°ì—´?´?‹¤.
+int load(Review* review[]){                         // ¸®ºä ¸ñ·ÏÀ» ÆÄÀÏ¿¡¼­ ºÒ·¯¿Â´Ù. ÀÔ·Â°ªÀº ¸®ºä ±¸Á¶Ã¼ ¹è¿­ÀÌ´Ù.
 	FILE *fp = fopen("data.txt","r");
 	int count = 0;
 	while(1){

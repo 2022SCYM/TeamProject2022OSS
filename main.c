@@ -52,7 +52,13 @@ int main(){
 			save(a,count);
 			break;
 		case 7:
-			load(a);
+			if(count>0) {
+				printf("현재 목록은 삭제됩니다. 계속 하시려면 1을 입력해주세요. ");
+				int y;
+				scanf("%d", &y);
+				if(y != 1) continue;
+			}
+			count = load(a);
 			break;
 		case 0:
 			break;
